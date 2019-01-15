@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:descendantFocusability="blocksDescendants">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +17,36 @@
             android:layout_height="@dimen/order_info_height">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:text="订单编号："
+                android:textColor="@color/text_color_blue"
+                android:textSize="@dimen/text_size_14"/>
+
+            <TextView
+                android:id="@+id/tv_order_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/default_margin"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_14"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/line_color"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/order_info_height">
+
+            <TextView
                 android:id="@+id/tv_order_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,7 +54,7 @@
                 android:layout_marginLeft="@dimen/default_margin"
                 android:text="接机 (经济型)"
                 android:textColor="@color/text_color_blue"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_14"/>
 
             <TextView
                 android:id="@+id/tv_book_time"
@@ -35,14 +65,15 @@
                 android:layout_marginRight="@dimen/default_margin"
                 android:text="6月30号  22:00"
                 android:textColor="@color/text_color_black"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_14"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_alignParentBottom="true"
-                android:background="@color/line_color" />
+                android:background="@color/line_color"/>
         </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/ll_business"
@@ -61,7 +92,7 @@
                     android:layout_width="@dimen/ic_height"
                     android:layout_height="@dimen/ic_height"
                     android:layout_marginLeft="@dimen/default_margin"
-                    android:src="@drawable/ic_address" />
+                    android:src="@drawable/ic_address"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,7 +100,7 @@
                     android:layout_marginLeft="@dimen/item_margin"
                     android:text="地址:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -77,13 +108,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/item_margin"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line_color" />
+                android:background="@color/line_color"/>
         </LinearLayout>
 
         <LinearLayout
@@ -100,11 +131,11 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/img_start_address"
                     android:layout_width="@dimen/ic_height"
                     android:layout_height="@dimen/ic_height"
                     android:layout_marginLeft="@dimen/default_margin"
-                    android:src="@drawable/ic_address"
-                    android:id="@+id/img_start_address"/>
+                    android:src="@drawable/ic_address"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -112,7 +143,7 @@
                     android:layout_marginLeft="@dimen/item_margin"
                     android:text="起点:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tv_start_address"
@@ -120,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/item_margin"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <LinearLayout
@@ -130,11 +161,11 @@
                 android:gravity="center_vertical">
 
                 <ImageView
+                    android:id="@+id/img_end_address"
                     android:layout_width="@dimen/ic_height"
                     android:layout_height="@dimen/ic_height"
                     android:layout_marginLeft="@dimen/default_margin"
-                    android:src="@drawable/ic_airport"
-                    android:id="@+id/img_end_address"/>
+                    android:src="@drawable/ic_airport"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,7 +173,7 @@
                     android:layout_marginLeft="@dimen/item_margin"
                     android:text="终点:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
 
                 <TextView
                     android:id="@+id/tv_end_address"
@@ -150,13 +181,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/item_margin"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_14" />
+                    android:textSize="@dimen/text_size_14"/>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/line_color" />
+                android:background="@color/line_color"/>
         </LinearLayout>
 
 
@@ -171,7 +202,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/default_margin"
                 android:textColor="@color/text_color_red"
-                android:textSize="@dimen/text_size_18" />
+                android:textSize="@dimen/text_size_18"/>
 
             <TextView
                 android:id="@+id/tv_order_status"
@@ -181,7 +212,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/default_margin"
                 android:textColor="@color/text_color_red"
-                android:textSize="@dimen/text_size_14" />
+                android:textSize="@dimen/text_size_14"/>
         </RelativeLayout>
     </LinearLayout>
 

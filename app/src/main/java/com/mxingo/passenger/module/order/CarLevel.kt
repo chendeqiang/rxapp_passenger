@@ -4,10 +4,10 @@ package com.mxingo.passenger.module.order
  * Created by zhouwei on 2017/8/3.
  */
 enum class CarLevel{
-    ECONOMIC(1, "经济型"), COMFORT(2, "舒适型"),  BUSINESS(3, "商务型"), BUICK(4, "别克GL8"), DELUXE_CAR(5, "豪华型"), LUXURY(6, "奢华型"),
-    DELUXE_BUSINESS(7, "豪华商务型"), EIGHT_MINIBUSES(20, "8座小巴"),TEN_MINIBUSES(30, "10座小巴"), FIFTEEN_MINIBUSES(40, "15座中巴"),
-    TWENTY_BUSINESS(50, "20座中巴"), THIRTY_FIVE_BUSINESS(80, "35座大巴"), FORTY_BUSINESS(90, "40座大巴"),FORTY_FIVE_BUSINESS(100, "45座大巴"),
-    FIFTY_BUSINESS(110, "50座大巴"), FIFTY_TWO_BUSINESS(120, "52座大巴");
+    ECONOMIC(1, "经济型"), COMFORT(2, "舒适型"),  BUSINESS(3, "商务型"), BUICK(911, "别克GL8"), DELUXE_CAR(5, "豪华型"), LUXURY(4, "奢华型"),
+    DELUXE_BUSINESS(18, "豪华商务型"), EIGHT_MINIBUSES(20, "8座小巴"),TEN_MINIBUSES(14, "10座小巴"), FIFTEEN_MINIBUSES(21, "15座中巴"),
+    TWENTY_BUSINESS(15, "20座中巴"), TWENTY_FIVE_BUSINESS(23, "25座中巴"),THIRTY_FIVE_BUSINESS(16, "35座大巴"), FORTY_BUSINESS(24, "40座大巴"),FORTY_FIVE_BUSINESS(17, "45座大巴"),
+    FIFTY_BUSINESS(500, "50座大巴"), FIFTY_TWO_BUSINESS(26, "52座大巴");
     private var value: Int
     private  var key: String
     private constructor(value: Int, key: String){
@@ -37,6 +37,7 @@ enum class CarLevel{
         const val TEN_MINIBUSES_TYPE = 30
         const val FIFTEEN_MINIBUSES_TYPE = 40
         const val TWENTY_BUSINESS_TYPE = 50
+        const val TWENTY_FIVE_BUSINESS_TYPE = 60
         const val THIRTY_FIVE_BUSINESS_TYPE = 80
         const val FORTY_BUSINESS_TYPE = 90
         const val FORTY_FIVE_BUSINESS_TYPE = 100

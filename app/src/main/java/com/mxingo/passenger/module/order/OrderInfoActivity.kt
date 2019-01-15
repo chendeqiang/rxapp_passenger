@@ -270,9 +270,9 @@ class OrderInfoActivity : BaseActivity() {
                     tvContentComment.text = order!!.evaluate
                 }
             }
-            if (order!!.orderStatus == OrderStatus.PAY_SUCC_TYPE) {
+            if(order!!.carType!=0){
                 tvOrderType.append("(${CarType.getKey(order!!.carType)})")
-            } else {
+            }else{
                 tvOrderType.append("(${CarLevel.getKey(order!!.carLevel)})")
             }
         } else {

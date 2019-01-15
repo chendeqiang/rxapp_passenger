@@ -16,6 +16,7 @@ import com.mxingo.passenger.model.ListOrderEntity
 import com.mxingo.passenger.model.OrderEntity
 import com.mxingo.passenger.module.base.http.ComponentHolder
 import com.mxingo.passenger.module.base.http.MyPresenter
+import com.mxingo.passenger.module.base.log.LogUtils
 import com.mxingo.passenger.widget.MyFooterView
 import com.mxingo.passenger.widget.MyProgress
 import com.mxingo.passenger.widget.ShowToast
@@ -102,7 +103,7 @@ class MyTripsActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
         lvTrip.setOnItemClickListener { _, view, i, _ ->
             if (view != footView) {
                 val item = adapter.getItem(i) as OrderEntity
-                if (item.orderStatus in OrderStatus.PUBORDER_TYPE..OrderStatus.FINISH_ORDER_TYPE || item.orderStatus == OrderStatus.REFUND_TYPE) {
+                if (item.orderStatus in OrderStatus.PUBORDER_TYPE..OrderStatus.REFUND_TYPE) {
                     OrderInfoActivity.startOrderInfoActivity(this, item.orderNo)
                 } else {
                     PayOrderActivity.startPayOrderActivity(this, item.orderNo)
@@ -135,13 +136,22 @@ class MyTripsActivity : BaseActivity(), TabLayout.OnTabSelectedListener {
         progress.dismiss()
         srlRefresh.isRefreshing = false
         if (listOrder.rspCode.equals("00")) {
-            if (tabAction == 2) {
+            var waitTakeOrderList: MutableList<OrderEntity> = ArrayList()
+            listOrder.orders.forEach { value -> if (value.orderStatus == OrderStatus.TAKEORDER_TYPE || value.orderStatus == OrderStatus.PAY_SUCC_TYPE) waitTakeOrderList.add(value) }
+            if (tabAction == 3) {
                 adapter.addAll(listOrder.waitPayOrders)
+                LogUtils.d("待支付---------",listOrder.waitPayOrders.toString())
+                footView.refresh = listOrder.waitPayOrders.size >= pageCount
+            }
+            if (tabAction == 2) {
+                adapter.addAll(waitTakeOrderList)
+                LogUtils.d("未出行---------",waitTakeOrderList.toString())
+                footView.refresh = waitTakeOrderList.size >= pageCount
             }
             if (tabAction == 1) {
                 adapter.addAll(listOrder.orders)
+                footView.refresh = listOrder.orders.size >= pageCount
             }
-            footView.refresh = listOrder.orders.size >= pageCount
         } else {
             ShowToast.showCenter(this, listOrder.rspDesc)
         }

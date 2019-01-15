@@ -248,15 +248,15 @@ class PubOrderActivity : BaseActivity() {
                 rlAirport.visibility = View.VISIBLE
                 rlSendAddress.visibility = View.GONE
             }
-            2 -> {//日租
-                orderType = OrderType.DAY_RENTER_TYPE
-                rlFlight.visibility = View.GONE
-                rlRenterDay.visibility = View.VISIBLE
-                rlTakeAddress.visibility = View.VISIBLE
-                rlAirport.visibility = View.GONE
-                rlSendAddress.visibility = View.GONE
-
-            }
+//            2 -> {//日租
+//                orderType = OrderType.DAY_RENTER_TYPE
+//                rlFlight.visibility = View.GONE
+//                rlRenterDay.visibility = View.VISIBLE
+//                rlTakeAddress.visibility = View.VISIBLE
+//                rlAirport.visibility = View.GONE
+//                rlSendAddress.visibility = View.GONE
+//
+//            }
         }
         tvFlight.text = ""
         tvBookTime.text = ""
@@ -291,16 +291,16 @@ class PubOrderActivity : BaseActivity() {
                     btnPubOrder.isClickable = false
                 }
             }
-            OrderType.DAY_RENTER_TYPE -> {//日租
-                if (dataEmpty[0] + dataEmpty[1] + dataEmpty[2] + dataEmpty[5] == 4) {
-                    btnPubOrder.isSelected = true
-                    btnPubOrder.isClickable = true
-                } else {
-                    btnPubOrder.isSelected = false
-                    btnPubOrder.isClickable = false
-                    LogUtils.d("TAKE_PLANE_TYPE", "NO" + dataEmpty[0] + "," + dataEmpty[1] + "," + dataEmpty[2] + "," + dataEmpty[5])
-                }
-            }
+//            OrderType.DAY_RENTER_TYPE -> {//日租
+//                if (dataEmpty[0] + dataEmpty[1] + dataEmpty[2] + dataEmpty[5] == 4) {
+//                    btnPubOrder.isSelected = true
+//                    btnPubOrder.isClickable = true
+//                } else {
+//                    btnPubOrder.isSelected = false
+//                    btnPubOrder.isClickable = false
+//                    LogUtils.d("TAKE_PLANE_TYPE", "NO" + dataEmpty[0] + "," + dataEmpty[1] + "," + dataEmpty[2] + "," + dataEmpty[5])
+//                }
+//            }
         }
     }
 

@@ -89,18 +89,25 @@ class OrderAdapter() : BaseAdapter() {
         }
 
         if (order.carType != 0) {
-            holder.tvOrderType.text = "${OrderType.getKey(order.orderType)} (${CarType.getKey(order.carType)}）"
+            holder!!.tvOrderType.text = "${OrderType.getKey(order.orderType)} (${CarType.getKey(order.carType)})"
         }
         if (order.carLevel != 0) {
-            holder.tvOrderType.text = "${OrderType.getKey(order.orderType)} (${CarLevel.getKey(order.carLevel)}）"
+            holder.tvOrderType.text = "${OrderType.getKey(order.orderType)} (${CarLevel.getKey(order.carLevel)})"
         }
+//        if (order.orderStatus==OrderStatus.WAIT_PAY_TYPE){
+//            holder!!.tvOrderType.text="${OrderType.getKey(order.orderType)} (${CarType.getKey(order.carType)})"
+//        }else{
+//            holder!!.tvOrderType.text="${OrderType.getKey(order.orderType)} (${CarLevel.getKey(order.carLevel)})"
+//        }
 
         if (order.orderStatus == OrderStatus.WAIT_PAY_TYPE || order.orderStatus == OrderStatus.CANCELORDER_TYPE || order.orderStatus == OrderStatus.PAY_FAIL_TYPE) {
             holder.tvFee.text = "¥${order.orderAmount / 100.0}"
         } else {
             holder.tvFee.text = "¥${order.payAmount / 100.0}"
         }
+
         holder.tvOrderStatus.text = OrderStatus.getKey(order.orderStatus)
+        holder.tvOrderNum.text = order.orderNo
         return v
     }
 
@@ -117,6 +124,7 @@ class OrderAdapter() : BaseAdapter() {
         var llBusiness: LinearLayout
         var imgStartAddress: ImageView
         var imgEndAddress: ImageView
+        var tvOrderNum: TextView
 
 
         constructor(view: View) {
@@ -131,6 +139,7 @@ class OrderAdapter() : BaseAdapter() {
             tvAddress = view.findViewById(R.id.tv_address)
             imgStartAddress = view.findViewById(R.id.img_start_address)
             imgEndAddress = view.findViewById(R.id.img_end_address)
+            tvOrderNum = view.findViewById(R.id.tv_order_num)
 
         }
     }
