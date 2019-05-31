@@ -175,9 +175,9 @@
     <orderEntry type="library" exported="" name="appcompat-v7-26.0.0-alpha1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javawriter-2.1.1" level="project" />
     <orderEntry type="library" exported="" name="dagger-2.8" level="project" />
-    <orderEntry type="library" exported="" name="wechat-sdk-android-with-mta-5.1.6" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-26.0.0-alpha1" level="project" />
     <orderEntry type="library" exported="" name="glide-4.0.0-RC1" level="project" />
+    <orderEntry type="library" exported="" name="wechat-sdk-android-with-mta-5.3.1" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-26.0.0-alpha1" level="project" />
     <orderEntry type="library" exported="" name="alipaySdk-20170725" level="project" />
     <orderEntry type="library" exported="" name="constraint-layout-1.0.2" level="project" />
