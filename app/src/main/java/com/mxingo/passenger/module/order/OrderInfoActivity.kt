@@ -3,7 +3,7 @@ package com.mxingo.passenger.module.order
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -79,7 +79,7 @@ class OrderInfoActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_info)
-        orderNo = intent.getStringExtra(Constants.ACTIVITY_DATA)
+        orderNo = intent.getStringExtra(Constants.ACTIVITY_DATA) as String
         progress = MyProgress(this)
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
@@ -151,7 +151,7 @@ class OrderInfoActivity : BaseActivity() {
             progress.show()
             presenter.evaluate(orderNo, level, etContentComment.text.toString())
         }
-        findViewById(R.id.img_mobile).setOnClickListener {
+        findViewById<ImageView>(R.id.img_mobile).setOnClickListener {
             StartUtil.callMobile(order!!.driverMobile, this)
         }
 

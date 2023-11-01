@@ -5,6 +5,8 @@ import android.os.Handler
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.passenger.MyApplication
 import com.mxingo.passenger.R
+import com.mxingo.passenger.module.base.data.UserInfoPreferences
+import com.mxingo.passenger.module.login.LoginActivity
 
 class StartPageActivity : BaseActivity() {
 
@@ -12,11 +14,16 @@ class StartPageActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_page)
 
-        MyApplication.bus.post(Any())
+        //MyApplication.bus.post(Any())
 
-        Handler().postDelayed({
-            MainActivity.startMainActivity(this)
+        if (UserInfoPreferences.getInstance().isFristStart){
+            //第一次启动app，跳转隐私协议页面
+            GuideActivity.startGuideActivity(this)
+        }else if (MyApplication.isMainActivityLive){
             finish()
-        }, 4000)
+            return
+        }else{
+            LoginActivity.startLoginActivity(this)
+        }
     }
 }

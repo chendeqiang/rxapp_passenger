@@ -1,6 +1,8 @@
 package com.mxingo.passenger.module.base.map;
 
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
+
+import android.app.Application;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -35,10 +37,6 @@ import com.mxingo.passenger.util.DisplayUtil;
 import com.mxingo.passenger.util.TextUtil;
 
 
-/**
- * Created by zhouwei on 16/9/30.
- */
-
 public class BaiduMapUtil {
 
     private LocationClient mLocClient;
@@ -55,10 +53,14 @@ public class BaiduMapUtil {
     private GeoCoder mSearch = null;
     private PoiSearch mPoiSearch;
 
+    public String locationNow;
+
     public static BaiduMapUtil getInstance() {
         if (instance == null) {
             instance = new BaiduMapUtil();
+            SDKInitializer.setAgreePrivacy(MyApplication.application, true);
             SDKInitializer.initialize(MyApplication.application);
+            LocationClient.setAgreePrivacy(true);
             SDKInitializer.setCoordType(CoordType.GCJ02);
         }
         return instance;
@@ -75,7 +77,7 @@ public class BaiduMapUtil {
 //        this.baiduMap.setOnMapClickListener(this);
         LatLng centPoint = new LatLng(30.281307, 120.170892);
         config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, BitmapDescriptorFactory
-                .fromResource(R.drawable.ic_location));
+                .fromResource(R.drawable.ic_location01));
         this.baiduMap.setMyLocationConfiguration(config);
         this.baiduMap.setMyLocationEnabled(true);
 
@@ -97,7 +99,11 @@ public class BaiduMapUtil {
 
     private void initBaidu() {
         if (mLocClient == null) {
-            mLocClient = new LocationClient(MyApplication.application);
+            try {
+                mLocClient = new LocationClient(MyApplication.application);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         }
         if (aCache == null) {
             aCache = ACache.get(MyApplication.application);
@@ -139,12 +145,13 @@ public class BaiduMapUtil {
                                 //创建InfoWindow展示的view
                                 TextView addMarker = new TextView(MyApplication.application.getApplicationContext());
                                 int padding = DisplayUtil.dip2px(mv.getContext(), 5);
-                                addMarker.setPadding(padding * 2, padding, padding * 2, padding);
+                                addMarker.setPadding(padding*2 , padding, padding*2 , padding);
                                 addMarker.setTextColor(ContextCompat.getColor(MyApplication.application, R.color.text_color_black));
                                 addMarker.setBackgroundColor(ContextCompat.getColor(MyApplication.application, R.color.white));
-                                if (!result.getPoiList().isEmpty()) {
+                                if (result.getPoiList()!=null &&!result.getPoiList().isEmpty()) {
                                     PoiInfo poiInfo = result.getPoiList().get(0);
-                                    addMarker.setText(poiInfo.name);
+                                    addMarker.setText(poiInfo.address);
+                                    locationNow= poiInfo.address;
                                     //定义用于显示该InfoWindow的坐标点
                                     LatLng pt = result.getPoiList().get(0).location;
                                     //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量

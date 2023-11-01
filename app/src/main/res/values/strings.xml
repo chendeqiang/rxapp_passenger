@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">任行约车</string>
+    <string name="app_name">任行约车乘客端</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="user_agreement">您在使用任行约车乘客端产品或服务前,请认真阅读并充分理解相关用户条款、平台规则及隐私政策。当您点击同意相关条款，并开始使用产品或服务，即表示您已经理解并同意该条款，该条款将构成对您具有法律约束的文件。用户隐私政策主要包含以下内容：个人信息（包括手机号码、位置、行程信息等）的收集使用规则及设备权限的调用情况。权限调用目的说明：任行约车希望获取您的电话权限，用于获取设备信息，防范运营风险；存储权限，用于必要的信息配置存储；位置权限，用于定位和导航。您确认本弹窗并不会直接开启相关权限，我们会就具体权限开启另行征得您的同意。</string>
 </resources>

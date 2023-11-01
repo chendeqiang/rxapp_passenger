@@ -13,27 +13,151 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/btn_pub_order"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/default_height"
+
+    <FrameLayout
+        android:id="@+id/fl_call"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            app:elevation="3dp"
+            app:backgroundTint="#FF2121"
+            app:fabSize="normal"
+            app:borderWidth="10dp"
+            android:layout_margin="12dp"
+            app:layout_anchorGravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_size_14"
+            android:layout_gravity="center"
+            android:text="报警"
+            android:elevation="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/ll_pub_order_1"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:background="@color/colorButtonBg"
-        android:text="预约接送机"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_18" />
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/item_margin"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_location01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_address_1"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/text_size_18"
+            android:textColor="@color/text_color_blue"
+            android:text="苏州国家环保产业园（东2门）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_pub_order"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_flight"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="预约接送机"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_take_car"
+            android:layout_marginLeft="50dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_car"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/btn_pub_order_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一键叫车"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_size_15" />
+        </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_pub_order"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/default_height"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginLeft="@dimen/default_margin"-->
+<!--        android:layout_marginRight="@dimen/default_margin"-->
+<!--        android:layout_marginBottom="80dp"-->
+<!--        android:background="@color/colorButtonBg"-->
+<!--        android:text="预约接送机"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="@dimen/text_size_18" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_pub_order_1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/default_height"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginLeft="@dimen/default_margin"-->
+<!--        android:layout_marginRight="@dimen/default_margin"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:background="@color/colorButtonBg"-->
+<!--        android:text="一键叫车"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="@dimen/text_size_18" />-->
 
 
     <Button
         android:id="@+id/btn_location"
         android:layout_width="@dimen/default_height"
         android:layout_height="@dimen/default_height"
-        android:layout_above="@+id/btn_pub_order"
+        android:layout_above="@+id/ll_pub_order_1"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/default_margin"
         android:layout_marginRight="@dimen/default_margin"
         android:background="@drawable/ic_my_location" />
 

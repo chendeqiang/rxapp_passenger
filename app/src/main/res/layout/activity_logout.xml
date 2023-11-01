@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    tools:context="com.mxingo.passenger.module.setting.SuggestionsActivity">
+
+    <include layout="@layout/action_bar"/>
+
+    <LinearLayout
+        android:layout_margin="@dimen/default_margin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:textColor="@color/text_color_black"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号注销提示："
+            android:textSize="16sp" />
+
+        <ScrollView
+            android:layout_marginTop="5dp"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="320dp">
+            <TextView
+                android:textSize="@dimen/text_size_14"
+                android:textColor="@color/text_color_black"
+                android:text="1.账号注销后，您在任行约车乘客端的信息将被清空且无法找回，包括但不限于：订单信息，钱包信息。\n\n2.账号注销后，我们将停止为您提供服务，并根据法律法规规定及平台隐私政策约定的期限分区加密保存您的个人信息。在保存期限内，我们将不再对您的个人信息进行商业化使用。保存期限届满后我们将对您的个人信息进行匿名化处理。\n\n3.如您使用任行约车乘客端过程中存在违反法律法规、任行约车乘客端使用协议、规则等的情形，您的违法记录、违约记录将不会随着账号的注销而清除，将会被任行约车乘客端永久保存。\n\n4.如您注销账号后，重新注册账号，违法、违约记录将会恢复。\n\n5.账号内的优惠券等将被作废。请确认账号内无任何财产。"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rabtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:text="我已阅读并同意"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_pub_order"
+        android:clickable="false"
+        android:text="申请注销"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18"/>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,16 +3,13 @@ package com.mxingo.passenger.module.order
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener
-import com.baidu.mapapi.search.poi.PoiDetailResult
-import com.baidu.mapapi.search.poi.PoiIndoorResult
-import com.baidu.mapapi.search.poi.PoiResult
+import com.baidu.mapapi.search.poi.*
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
 import com.mxingo.passenger.R
@@ -163,6 +160,10 @@ class SearchFlightActivity : BaseActivity() {
                 }
 
                 override fun onGetPoiDetailResult(p0: PoiDetailResult?) {
+                }
+
+                override fun onGetPoiDetailResult(p0: PoiDetailSearchResult?) {
+
                 }
             })
         } catch (e: Exception) {

@@ -3,24 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/btn_white_round_5"
     tools:context="com.mxingo.passenger.module.login.LoginActivity">
 
     <LinearLayout
         android:id="@+id/ll_mobile"
-        android:layout_width="@dimen/login_width"
-        android:layout_height="@dimen/login_height"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/btn_white_round_5"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:visibility="visible">
 
+
+       <ImageView
+           android:layout_marginTop="50dp"
+           android:src="@drawable/push"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+
         <RelativeLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
+                android:layout_marginTop="80dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -29,23 +39,23 @@
                 android:textSize="@dimen/text_size_18" />
 
             <ImageView
+                android:layout_marginTop="@dimen/default_margin"
                 android:id="@+id/img_mobile"
-                android:layout_width="@dimen/login_image_width"
-                android:layout_height="@dimen/login_image_height"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/item_margin"
                 android:padding="2dp"
                 android:src="@drawable/ic_cancel" />
         </RelativeLayout>
 
         <EditText
+            android:layout_marginTop="40dp"
             android:id="@+id/et_mobile"
             android:layout_width="@dimen/login_line_width"
             android:layout_height="@dimen/login_line_height"
-            android:layout_marginTop="@dimen/item_margin"
             android:background="@null"
-            android:gravity="bottom"
+            android:gravity="center_horizontal"
             android:hint="请输入手机号"
             android:inputType="number"
             android:maxLength="11"
@@ -57,22 +67,32 @@
             android:background="@color/colorButtonBg" />
 
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginTop="@dimen/login_margin_top">
+            android:layout_marginTop="25dp">
+
+            <CheckBox
+                android:id="@+id/ck_agreement"
+                android:layout_gravity="center_vertical"
+                android:buttonTint="@color/text_color_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <TextView
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="点击 下一步 即表示同意"
-                android:textColor="@color/text_color_gray"
-                android:textSize="@dimen/text_size_10"/>
+                android:text="阅读并同意"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_14"/>
 
             <TextView
+                android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="《用户协议》"
+                android:text="《用户隐私协议》"
                 android:textColor="@color/text_color_blue"
-                android:textSize="@dimen/text_size_10"
+                android:textSize="@dimen/text_size_14"
                 android:id="@+id/tv_user_agreement"/>
 
         </LinearLayout>
@@ -81,7 +101,7 @@
             android:id="@+id/btn_next"
             android:layout_width="@dimen/login_line_width"
             android:layout_height="@dimen/login_line_height"
-            android:layout_marginTop="@dimen/login_margin_top"
+            android:layout_marginTop="30dp"
             android:background="@color/btn_next"
             android:text="下一步"
             android:textColor="@color/white"

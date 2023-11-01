@@ -1,6 +1,5 @@
 package com.mxingo.passenger.module
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -22,7 +21,7 @@ class UpdateVersionActivity : BaseActivity() {
 
     companion object {
         @JvmStatic
-        fun startUpdateVersionActivity(context: Context, versionEntity: VersionEntity) {
+        fun startUpdateVersionActivity(context: MainActivity, versionEntity: VersionEntity) {
             context.startActivity(Intent(context, UpdateVersionActivity::class.java).putExtra(Constants.ACTIVITY_DATA, versionEntity))
         }
     }
@@ -33,9 +32,9 @@ class UpdateVersionActivity : BaseActivity() {
         setContentView(R.layout.activity_update_version)
         ButterKnife.bind(this)
 
-        tvUpdateContent = findViewById(R.id.tv_update_content) as TextView
-        btnUpdateIdOk = findViewById(R.id.btn_update_id_ok) as Button
-        btnUpdateIdCancel = findViewById(R.id.btn_update_id_cancel) as Button
+        tvUpdateContent = findViewById<TextView>(R.id.tv_update_content)
+        btnUpdateIdOk = findViewById<Button>(R.id.btn_update_id_ok)
+        btnUpdateIdCancel = findViewById<Button>(R.id.btn_update_id_cancel)
 
         versionEntity = intent.getSerializableExtra(Constants.ACTIVITY_DATA) as VersionEntity
         tvUpdateContent.text = "版本:${versionEntity!!.version}\n大小: ${versionEntity!!.size}\n\n${versionEntity!!.log}"

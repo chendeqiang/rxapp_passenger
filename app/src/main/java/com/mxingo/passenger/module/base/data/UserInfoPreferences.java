@@ -13,6 +13,7 @@ public class UserInfoPreferences {
     private static UserInfoPreferences preference = null;
     private SharedPreferences sharedPreference;
     private String packageName = "";
+    private final String ISFRISTSTART = "isFristStart";
 
     private final String MOBILE = "mobile"; //手机号
     private final String DEVTOKEN = "devToken";//cid
@@ -101,6 +102,17 @@ public class UserInfoPreferences {
         setUserId(0);
         setToken("");
         setMobile("");
+    }
+
+    public Boolean isFristStart(){
+        return sharedPreference.getBoolean(ISFRISTSTART,true);
+    }
+
+
+    public void setNotFristStart(){
+        SharedPreferences.Editor edit = sharedPreference.edit();
+        edit.putBoolean(ISFRISTSTART,false);
+        edit.apply();
     }
 
     public String getAddress() {

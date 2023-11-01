@@ -3,7 +3,7 @@ package com.mxingo.passenger.module.coupon
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.widget.AbsListView
 import android.widget.LinearLayout
 import android.widget.ListView
@@ -56,13 +56,13 @@ class CouponsActivity : BaseActivity() {
     }
 
     private fun initView() {
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setToolbar(toolbar)
-        val tvToolbar = findViewById(R.id.tv_toolbar_title) as TextView
+        val tvToolbar = findViewById<TextView>(R.id.tv_toolbar_title)
         tvToolbar.text = "用车券"
 
-        lvCoupon = findViewById(R.id.lv_coupon) as ListView
-        llEmpty = findViewById(R.id.ll_empty) as LinearLayout
+        lvCoupon = findViewById<ListView>(R.id.lv_coupon)
+        llEmpty = findViewById<LinearLayout>(R.id.ll_empty)
         adapter = CouponAdapter(this)
         footView = MyFooterView(this)
         lvCoupon.adapter = adapter

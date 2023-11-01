@@ -1,6 +1,7 @@
 package com.mxingo.passenger.module.base.http;
 
 
+import com.mxingo.passenger.module.GuideActivity;
 import com.mxingo.passenger.module.MainActivity;
 import com.mxingo.passenger.module.coupon.CouponsActivity;
 import com.mxingo.passenger.module.coupon.UseCouponActivity;
@@ -15,6 +16,7 @@ import com.mxingo.passenger.module.order.OrderInfoActivity;
 import com.mxingo.passenger.module.order.PayOrderActivity;
 import com.mxingo.passenger.module.order.PubOrderActivity;
 import com.mxingo.passenger.module.order.SearchFlightActivity;
+import com.mxingo.passenger.module.order.TakeCarNowActivity;
 import com.mxingo.passenger.module.setting.SettingActivity;
 import com.mxingo.passenger.module.setting.SuggestionsActivity;
 import com.mxingo.passenger.wxapi.WXPayEntryActivity;
@@ -49,5 +51,7 @@ public interface AppComponent {
     void inject(SuggestionsActivity activity);
 
     void inject(AirportActivity activity);
+    void inject(TakeCarNowActivity activity);
+    void inject(GuideActivity activity);
 
 }

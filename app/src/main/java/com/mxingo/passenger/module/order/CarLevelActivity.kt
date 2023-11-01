@@ -3,7 +3,7 @@ package com.mxingo.passenger.module.order
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.widget.ListView
 import android.widget.TextView
 import com.mxingo.driver.module.BaseActivity
@@ -76,8 +76,8 @@ class CarLevelActivity : BaseActivity() {
         startLon = intent.getDoubleExtra(Constants.ACTIVITY_START_LON, 0.0)
         endLon = intent.getDoubleExtra(Constants.ACTIVITY_END_LON, 0.0)
         endLat = intent.getDoubleExtra(Constants.ACTIVITY_END_Lat, 0.0)
-        date = intent.getStringExtra(Constants.ACTIVITY_DATE)
-        city = intent.getStringExtra(Constants.ACTIVITY_CITY)
+        date = intent.getStringExtra(Constants.ACTIVITY_DATE) as String
+        city = intent.getStringExtra(Constants.ACTIVITY_CITY) as String
         bookDays = intent.getIntExtra(Constants.ACTIVITY_BOOK_DAY, 0)
 
         progress = MyProgress(this)

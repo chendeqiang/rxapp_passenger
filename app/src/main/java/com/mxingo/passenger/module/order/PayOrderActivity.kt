@@ -1,19 +1,17 @@
 package com.mxingo.passenger.module.order
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Message
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.google.gson.Gson
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
@@ -73,7 +71,7 @@ class PayOrderActivity : BaseActivity() {
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         progress = MyProgress(this)
-        orderNo = intent.getStringExtra(Constants.ACTIVITY_DATA)
+        orderNo = intent.getStringExtra(Constants.ACTIVITY_DATA) as String
 
         EventBus.getDefault().register(this)
 
@@ -89,15 +87,20 @@ class PayOrderActivity : BaseActivity() {
         imgWechat = findViewById(R.id.img_wechat) as ImageView
         btnCancle = findViewById(R.id.btn_cancel) as Button
 
-        findViewById(R.id.rl_coupon).setOnClickListener {
+        findViewById<RelativeLayout>(R.id.rl_coupon).setOnClickListener {
             UseCouponActivity.startUseCouponActivity(this, UserInfoPreferences.getInstance().userId, orderNo)
         }
 
-        findViewById(R.id.btn_pay).setOnClickListener {
+        findViewById<Button>(R.id.btn_pay).setOnClickListener {
             if (coupon != null && !TextUtil.isEmpty(coupon!!.no)) {
                 presenter.payOrder(orderNo, coupon!!.no, payType)
             } else {
                 presenter.payOrder(orderNo, "", payType)
+
+                //
+                ShowToast.showCenter(this@PayOrderActivity, "支付成功")
+                OrderInfoActivity.startOrderInfoActivity(this@PayOrderActivity, orderNo)
+                finish()
             }
         }
 
@@ -115,12 +118,12 @@ class PayOrderActivity : BaseActivity() {
             dialog.show()
         }
 
-        findViewById(R.id.rl_alipay).setOnClickListener {
+        findViewById<RelativeLayout>(R.id.rl_alipay).setOnClickListener {
             payType = 3
             initPayType(payType)
         }
 
-        findViewById(R.id.rl_wechat).setOnClickListener {
+        findViewById<RelativeLayout>(R.id.rl_wechat).setOnClickListener {
             payType = 2
             initPayType(payType)
         }
@@ -157,7 +160,7 @@ class PayOrderActivity : BaseActivity() {
                 initOrder(any as QryOrderEntity)
             }
             String::class.java -> {
-                startPayOrder(any)
+                //startPayOrder(any)
             }
             ListCouponEntity::class.java -> {
                 val data = any as ListCouponEntity
@@ -258,7 +261,8 @@ class PayOrderActivity : BaseActivity() {
     }
 
 
-    val mHandler = object : Handler() {
+    val mHandler = @SuppressLint("HandlerLeak")
+    object : Handler() {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 SDK_PAY_FLAG -> {

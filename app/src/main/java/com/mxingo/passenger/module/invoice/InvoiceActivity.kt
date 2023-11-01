@@ -3,7 +3,8 @@ package com.mxingo.passenger.module.invoice
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import android.widget.LinearLayout
+import androidx.appcompat.widget.Toolbar
 import android.widget.TextView
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
@@ -46,10 +47,10 @@ class InvoiceActivity : BaseActivity() {
         tvToolbar.text = "发票管理"
 
         tvInvoice = findViewById(R.id.tv_invoice) as TextView
-        findViewById(R.id.ll_make_out_invoice).setOnClickListener {
+        findViewById<LinearLayout>(R.id.ll_make_out_invoice).setOnClickListener {
             MakeInvoiceActivity.startRecordInvoiceActivity(this, userId)
         }
-        findViewById(R.id.ll_invoice_record).setOnClickListener {
+        findViewById<LinearLayout>(R.id.ll_invoice_record).setOnClickListener {
             RecordInvoiceActivity.startRecordInvoiceActivity(this, userId)
         }
 

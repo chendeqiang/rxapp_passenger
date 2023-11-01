@@ -12,42 +12,43 @@ def increasedVersionCode() {
 
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.mxingo.passenger"
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion 25
+        targetSdkVersion 29
         versionCode increasedVersionCode()
-        versionName "1.0.8"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//        ndk {
-//            //选择要添加的对应cpu类型的.so库。
-//            abiFilters 'armeabi'
-//        }
-    }
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'armeabi-v7a', 'armeabi', 'armeabi-v8a'
-            universalApk true
+        versionName "1.4.5"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters "armeabi-v7a",  "arm64-v8a"
         }
+
+        //android studio 4.0 以上打包会出现这个问题
+        lintOptions { checkReleaseBuilds false }
     }
+
+//    splits {
+//        abi {
+//            enable true
+//            reset()
+//            include 'armeabi-v7a','arm64-v8a'
+//            universalApk true
+//        }
+//    }
     signingConfigs {
-        release {
+        config {
             storeFile file("rx_passenger.jks")
             keyAlias "rx2017"
             keyPassword "rx2017"
             storePassword "rx2017"
         }
-    }
-
-    productFlavors {
-
-//        m360 { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "360"] }
-//        yingyongbao { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyongbao"] }
-        rx { manifestPlaceholders = [UMENG_CHANNEL_VALUE: "rx"] }
     }
 
     lintOptions {
@@ -59,76 +60,111 @@ android {
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.release
+            zipAlignEnabled true // Zipalign 优化
+            debuggable true
+            minifyEnabled false  //是否代码混淆
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${applicationId}_v${defaultConfig.versionName}_${releaseTime()}_debug.apk"
+                }
+            }
+
         }
+
         release {
-            // 不显示log
+            // 显示log
             buildConfigField("boolean", "LOG_DEBUG", "true")
             // Zipalign 优化
             zipAlignEnabled true
             debuggable false
-            minifyEnabled false
-            signingConfig signingConfigs.release
+            minifyEnabled true  //是否代码混淆
+            signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        //定义输出文件名
-                        productFlavors.each { flavor ->
-                            def myFlavor = flavor
-                            def fileName = "${applicationId}_v${defaultConfig.versionName}_${myFlavor.manifestPlaceholders.UMENG_CHANNEL_VALUE}_${releaseTime()}_release.apk"
-                            output.outputFile = new File(outputFile.parent, fileName)
-                        }
-                    }
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "${applicationId}_v${defaultConfig.versionName}_${releaseTime()}_release.apk"
                 }
             }
         }
+//        release {
+//            // 不显示log
+//            buildConfigField("boolean", "LOG_DEBUG", "true")
+//            // Zipalign 优化
+//            zipAlignEnabled true
+//            debuggable false
+//            minifyEnabled false
+//            signingConfig signingConfigs.release
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//
+//            applicationVariants.all { variant ->
+//                variant.outputs.all { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        //定义输出文件名
+//                        productFlavors.each { flavor ->
+//                            def myFlavor = flavor
+//                            def fileName = "${applicationId}_v${defaultConfig.versionName}_${releaseTime()}_release.apk"
+////                            output.outputFile = new File(outputFile.parent, fileName)
+//                            outputFileName= fileName
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
-    compile('com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.3') {
-        exclude group: 'com.android.support'
-    }
-    compile('com.github.gzu-liyujiang.AndroidPicker:FilePicker:1.5.3') {
-        exclude group: 'com.android.support'
-    }
-    compile('com.github.gzu-liyujiang.AndroidPicker:ColorPicker:1.5.3') {
-        exclude group: 'com.android.support'
-    }
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:1.5.6'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:FilePicker:1.5.6'
+    implementation 'com.github.gzu-liyujiang.AndroidPicker:ColorPicker:1.5.6'
 
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
-    compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.kaopiz:kprogresshud:1.1.0'
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.+'
-    compile 'com.android.support:support-v4:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.jakewharton:butterknife:8.7.0'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup:otto:1.3.8'
-    compile 'com.google.dagger:dagger:2.8'
-    compile 'com.github.bumptech.glide:glide:4.0.0-RC1'
-    compile 'com.android.support:support-vector-drawable:26.+'
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
-    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    implementation 'org.greenrobot:eventbus:3.2.0'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation 'com.kaopiz:kprogresshud:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup:otto:1.3.8'
+    implementation 'com.google.dagger:dagger:2.23.1'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'com.github.fabioCollini:DaggerMock:0.6.1'
+    androidTestImplementation 'com.github.fabioCollini:DaggerMock:0.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.1'
+    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+
+//    implementation 'com.amap.api:3dmap:9.2.1'
+//    implementation 'com.amap.api:search:9.7.0'
+//    implementation 'com.amap.api:location:6.4.0'
 }

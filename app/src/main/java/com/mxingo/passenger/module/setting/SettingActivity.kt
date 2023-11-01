@@ -3,7 +3,8 @@ package com.mxingo.passenger.module.setting
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import android.widget.Button
+import androidx.appcompat.widget.Toolbar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.google.gson.Gson
@@ -13,6 +14,7 @@ import com.mxingo.passenger.R
 import com.mxingo.passenger.model.CheckVersionEntity
 import com.mxingo.passenger.model.CommEntity
 import com.mxingo.passenger.model.VersionEntity
+import com.mxingo.passenger.module.MainActivity
 import com.mxingo.passenger.module.UpdateVersionActivity
 import com.mxingo.passenger.module.WebViewActivity
 import com.mxingo.passenger.module.base.data.UserInfoPreferences
@@ -20,7 +22,6 @@ import com.mxingo.passenger.module.base.data.VersionInfo
 import com.mxingo.passenger.module.base.http.ComponentHolder
 import com.mxingo.passenger.module.base.http.MyPresenter
 import com.mxingo.passenger.module.login.LoginActivity
-import com.mxingo.passenger.util.StartUtil
 import com.mxingo.passenger.widget.MyProgress
 import com.mxingo.passenger.widget.ShowToast
 import com.squareup.otto.Subscribe
@@ -61,16 +62,25 @@ class SettingActivity : BaseActivity() {
         val tvToolbar = findViewById(R.id.tv_toolbar_title) as TextView
         tvToolbar.text = "设置"
 
-        findViewById(R.id.tv_about_as).setOnClickListener {
+        findViewById<TextView>(R.id.tv_about_as).setOnClickListener {
             AboutUsActivity.startAboutUsActivity(this, "关于我们", Constants.ABOUTUS)
         }
 
-        findViewById(R.id.tv_helper).setOnClickListener {
+        findViewById<TextView>(R.id.tv_user_yinsi).setOnClickListener {
+            WebViewActivity.startWebViewActivity(this, "隐私政策", "http://www.mxingo.com/mxnet/app/serviceCustom.html")
+        }
+
+        findViewById<TextView>(R.id.tv_helper).setOnClickListener {
             WebViewActivity.startWebViewActivity(this,"帮助中心",Constants.HELPER)
 
         }
 
-        findViewById(R.id.tv_kefu).setOnClickListener {
+        findViewById<TextView>(R.id.tv_logout).setOnClickListener {
+            LogoutActivity.startLogoutActivity(this, UserInfoPreferences.getInstance().userId)
+
+        }
+
+        findViewById<TextView>(R.id.tv_kefu).setOnClickListener {
             if (UserInfoPreferences.getInstance().userId == 0) {
                 LoginActivity.startLoginActivity(this)
             } else {
@@ -78,7 +88,7 @@ class SettingActivity : BaseActivity() {
             }
         }
 
-        findViewById(R.id.btn_logout).setOnClickListener {
+        findViewById<Button>(R.id.btn_logout).setOnClickListener {
             progress.show()
             presenter.logout(userId)
         }
@@ -103,7 +113,7 @@ class SettingActivity : BaseActivity() {
                     val version = Gson().fromJson(checkVersionEntity.data.value, VersionEntity::class.java)
                     if (version.versionCode > VersionInfo.getVersionCode()) {
                         version.isMustUpdate = version.forceUpdataVersions.contains(VersionInfo.getVersionName())
-                        UpdateVersionActivity.startUpdateVersionActivity(this, version)
+                        UpdateVersionActivity.startUpdateVersionActivity(applicationContext as MainActivity, version)
                     } else {
                         ShowToast.showCenter(this, "您已经是最新版本了")
                     }

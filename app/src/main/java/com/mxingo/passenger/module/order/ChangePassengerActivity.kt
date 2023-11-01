@@ -8,10 +8,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import android.widget.Button
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
+import android.widget.TextView
 import com.mxingo.driver.utils.Constants
 import com.mxingo.passenger.R
 import com.mxingo.passenger.module.base.log.LogUtils
@@ -35,8 +37,8 @@ class ChangePassengerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_change_passenger)
         etPassenger = findViewById(R.id.et_passenger) as EditText
         etPassengerMobile = findViewById(R.id.et_passenger_mobile) as EditText
-        findViewById(R.id.btn_cancel).setOnClickListener { finish() }
-        findViewById(R.id.btn_ok).setOnClickListener {
+        findViewById<Button>(R.id.btn_cancel).setOnClickListener { finish() }
+        findViewById<Button>(R.id.btn_ok).setOnClickListener {
             if (TextUtil.isEmpty(etPassenger.text.toString())) {
                 ShowToast.showCenter(this, "请输入乘客姓名")
                 return@setOnClickListener
@@ -57,7 +59,7 @@ class ChangePassengerActivity : AppCompatActivity() {
                     .putExtra(Constants.ACTIVITY_PASSENGER_MOBILE, etPassengerMobile.text.toString()))
             finish()
         }
-        findViewById(R.id.tv_directory).setOnClickListener {
+        findViewById<TextView>(R.id.tv_directory).setOnClickListener {
             addPermissions()
         }
     }

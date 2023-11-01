@@ -3,14 +3,11 @@ package com.mxingo.passenger.module.invoice
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.TextView
+import android.widget.*
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
 import com.mxingo.passenger.R
@@ -96,7 +93,7 @@ class MakeInvoiceActivity : BaseActivity() {
             etInvoiceTitle.text.clear()
 
         }
-        findViewById(R.id.rb_person).setOnClickListener {
+        findViewById<RadioButton>(R.id.rb_person).setOnClickListener {
             invoiceType = InvoiceType.PERSON_TYPE
             etInvoiceTitle.text.clear()
             etInvoiceTitle.append("个人")
@@ -104,11 +101,11 @@ class MakeInvoiceActivity : BaseActivity() {
             llTaxNumber.visibility = View.GONE
         }
 
-        findViewById(R.id.ll_area).setOnClickListener {
+        findViewById<LinearLayout>(R.id.ll_area).setOnClickListener {
             addressPicker.show()
         }
 
-        findViewById(R.id.btn_apply_invoice).setOnClickListener {
+        findViewById<Button>(R.id.btn_apply_invoice).setOnClickListener {
             progress.show()
             presenter.applyInvoice(userId, invoiceType, etInvoiceTitle.text.toString(), etTaxNumber.text.toString()
                     , etInvoiceValue.text.toString(), invoiceAmountLimit ,tvInvoiceContent.text.toString(), etAddressee.text.toString()

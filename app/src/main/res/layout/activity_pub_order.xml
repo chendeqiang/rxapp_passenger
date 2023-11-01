@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_marginBottom="@dimen/item_margin"
                 android:background="@color/white">
 
-                <android.support.design.widget.TabLayout
+                <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_pub_order"
                     android:layout_width="200dp"
                     android:layout_height="48dp"
@@ -35,12 +35,12 @@
                     app:tabSelectedTextColor="@color/colorButtonBg"
                     app:tabTextColor="@color/text_color_black">
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="专车接机" />
 
-                    <android.support.design.widget.TabItem
+                    <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="专车送机" />
@@ -49,10 +49,11 @@
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
                         <!--android:text="日租" />-->
-                </android.support.design.widget.TabLayout>
+                </com.google.android.material.tabs.TabLayout>
             </RelativeLayout>
             <!-- 航班号填写 -->
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_flight"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/default_height">
@@ -425,4 +426,4 @@
     </RelativeLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

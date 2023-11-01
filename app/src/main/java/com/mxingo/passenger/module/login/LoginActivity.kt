@@ -5,21 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
 import com.mxingo.passenger.R
 import com.mxingo.passenger.model.LoginEntity
 import com.mxingo.passenger.model.RegEntity
 import com.mxingo.passenger.model.VCodeEntity
+import com.mxingo.passenger.module.MainActivity
 import com.mxingo.passenger.module.WebViewActivity
 import com.mxingo.passenger.module.base.data.UserInfoPreferences
 import com.mxingo.passenger.module.base.http.ComponentHolder
@@ -40,7 +38,7 @@ class LoginActivity : BaseActivity() {
     lateinit var etMobile: EditText
     lateinit var btnNext: Button
     lateinit var tvCountDown: TextView
-
+    lateinit var ckAgreement: CheckBox
     lateinit var tvVcodes: List<TextView>
     lateinit var tvMobile: TextView
     lateinit var etVcode: EditText
@@ -67,7 +65,7 @@ class LoginActivity : BaseActivity() {
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         progress = MyProgress(this)
-
+        ckAgreement = findViewById(R.id.ck_agreement) as CheckBox
         llMobile = findViewById(R.id.ll_mobile) as LinearLayout
         llVcode = findViewById(R.id.ll_vcode) as LinearLayout
         etMobile = findViewById(R.id.et_mobile) as EditText
@@ -96,11 +94,20 @@ class LoginActivity : BaseActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+
         btnNext.setOnClickListener {
-            if (TextUtil.isMobileNO(etMobile.text.toString())) {
+            if (etMobile.text.isNullOrEmpty()||!TextUtil.isMobileNO(etMobile.text.toString())){
+                ShowToast.showCenter(this, "请输入正确的手机号")
+            }else if (!ckAgreement.isChecked){
+                ShowToast.showCenter(this,"请勾选同意后再进行登录")
+            }else{
                 progress.show()
                 presenter.getVcode(etMobile.text.toString())
             }
+//            if (TextUtil.isMobileNO(etMobile.text.toString())) {
+//                progress.show()
+//                presenter.getVcode(etMobile.text.toString())
+//            }
         }
 
 
@@ -127,18 +134,24 @@ class LoginActivity : BaseActivity() {
             }
         }
 
-        findViewById(R.id.img_mobile).setOnClickListener {
-            finish()
-        }
-        findViewById(R.id.img_vcode_cancel).setOnClickListener {
+//        findViewById<ImageView>(R.id.img_mobile).setOnClickListener {
+//            finish()
+//        }
+        findViewById<ImageView>(R.id.img_vcode_cancel).setOnClickListener {
             finish()
         }
         if(UserInfoPreferences.getInstance().userId != 0){
             etMobile.text.append(UserInfoPreferences.getInstance().mobile)
         }
 
-        findViewById(R.id.tv_user_agreement).setOnClickListener {
+        findViewById<TextView>(R.id.tv_user_agreement).setOnClickListener {
             WebViewActivity.startWebViewActivity(this,"用户协议",Constants.USER_AGREEMENT)
+        }
+
+        tvCountDown.setOnClickListener {
+            countDown.start()
+            tvCountDown.isClickable =false
+            presenter.getVcode(etMobile.text.toString())
         }
     }
 
@@ -180,6 +193,7 @@ class LoginActivity : BaseActivity() {
     inner class MyCountDownTimer : CountDownTimer(60000, 1000) {
         override fun onFinish() {
             tvCountDown.text = "获取验证码"
+            tvCountDown.isClickable =true
         }
 
         override fun onTick(downTime: Long) {
@@ -238,7 +252,8 @@ class LoginActivity : BaseActivity() {
             UserInfoPreferences.getInstance().userId =loginEntity.usrId
             UserInfoPreferences.getInstance().token = loginEntity.rxToken
             UserInfoPreferences.getInstance().mobile = tvMobile.text.toString()
-            setResult(Activity.RESULT_OK)
+            //setResult(Activity.RESULT_OK)
+            MainActivity.startMainActivity(this)
             finish()
         } else {
             ShowToast.showCenter(this, loginEntity.rspDesc)

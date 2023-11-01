@@ -4,13 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v7.widget.Toolbar
+import com.google.android.material.tabs.TabLayout
+import androidx.appcompat.widget.Toolbar
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import com.baidu.mapapi.search.core.PoiInfo
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
@@ -91,7 +88,7 @@ class PubOrderActivity : BaseActivity() {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setToolbar(toolbar)
         val tvToolbar = findViewById(R.id.tv_toolbar_title) as TextView
-        tvToolbar.text = getString(R.string.app_name)
+        tvToolbar.text = "预约接送机"
 
         tabPubOrder = findViewById(R.id.tab_pub_order) as TabLayout
         rlFlight = findViewById(R.id.rl_flight) as RelativeLayout
@@ -199,7 +196,7 @@ class PubOrderActivity : BaseActivity() {
             }
         }
 
-        findViewById(R.id.ll_edit).setOnClickListener {
+        findViewById<LinearLayout>(R.id.ll_edit).setOnClickListener {
             ChangePassengerActivity.startChangePassengerActivity(this)
         }
 
@@ -234,7 +231,7 @@ class PubOrderActivity : BaseActivity() {
         when (position) {
             0 -> {//接机
                 orderType = OrderType.TAKE_PLANE_TYPE
-                rlFlight.visibility = View.VISIBLE
+                rlFlight.visibility = View.GONE
                 rlRenterDay.visibility = View.GONE
                 rlTakeAddress.visibility = View.GONE
                 rlAirport.visibility = View.VISIBLE

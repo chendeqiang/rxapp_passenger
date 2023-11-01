@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.http.SslError
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.webkit.SslErrorHandler
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -35,9 +35,9 @@ class AboutUsActivity : BaseActivity() {
         setContentView(R.layout.activity_about_as)
         wv = findViewById(R.id.abwv) as WebView
 
-        url = intent.getStringExtra(Constants.URL)
+        url = intent.getStringExtra(Constants.URL) as String
 
-        title = intent.getStringExtra(Constants.TITLE)
+        title = intent.getStringExtra(Constants.TITLE) as String
         LogUtils.d("TAG", title + "," + url)
 
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
@@ -65,7 +65,7 @@ class AboutUsActivity : BaseActivity() {
         }
 
         override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
-            if (view.url.contains("https")) {
+            if (view.url?.contains("https") == true) {
                 handler.proceed()
             }
         }

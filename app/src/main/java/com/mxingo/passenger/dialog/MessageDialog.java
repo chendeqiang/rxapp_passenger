@@ -3,7 +3,7 @@ package com.mxingo.passenger.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,15 +12,11 @@ import com.mxingo.passenger.R;
 import com.mxingo.passenger.util.TextUtil;
 
 
-/**
- * Created by zhouwei on 2017/7/13.
- */
-
 public class MessageDialog extends Dialog {
     private TextView msgText;
     private Button btnCancel, btnAgain;
     private String okText;
-
+    private String cancelText;
     private String messageText;
     private View.OnClickListener onOkClickListener, onCancelClickListener;
 
@@ -50,10 +46,18 @@ public class MessageDialog extends Dialog {
         if (!TextUtil.isEmpty(okText)) {
             btnAgain.setText(okText);
         }
+
+        if (!TextUtil.isEmpty(cancelText)) {
+            btnCancel.setText(cancelText);
+        }
     }
 
     public void setOkText(String okText) {
         this.okText = okText;
+    }
+
+    public void setCancelText(String cancelText){
+        this.cancelText=cancelText;
     }
 
     public void setOnCancelClickListener(View.OnClickListener onCancelClickListener) {

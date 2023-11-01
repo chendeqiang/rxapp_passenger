@@ -8,13 +8,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
 import com.baidu.mapapi.search.core.PoiInfo
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener
-import com.baidu.mapapi.search.poi.PoiDetailResult
-import com.baidu.mapapi.search.poi.PoiIndoorResult
-import com.baidu.mapapi.search.poi.PoiResult
+import com.baidu.mapapi.search.poi.*
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
 import com.mxingo.passenger.R
@@ -38,6 +36,10 @@ class SearchAddressActivity : BaseActivity() {
         override fun onGetPoiDetailResult(p0: PoiDetailResult?) {
 
         }
+
+        override fun onGetPoiDetailResult(p0: PoiDetailSearchResult?) {
+
+        }
     }
 
     companion object {
@@ -53,10 +55,10 @@ class SearchAddressActivity : BaseActivity() {
         tvCityName = findViewById(R.id.tv_select_city) as TextView
         etAddress = findViewById(R.id.et_address) as EditText
         lvAddress = findViewById(R.id.lv_address) as ListView
-        findViewById(R.id.tv_cancel).setOnClickListener {
+        findViewById<TextView>(R.id.tv_cancel).setOnClickListener {
             finish()
         }
-        findViewById(R.id.img_cancel).setOnClickListener {
+        findViewById<ImageView>(R.id.img_cancel).setOnClickListener {
             etAddress.text.clear()
         }
 
@@ -106,7 +108,7 @@ class SearchAddressActivity : BaseActivity() {
 
 
         }
-        findViewById(R.id.tv_select_city).setOnClickListener {
+        findViewById<TextView>(R.id.tv_select_city).setOnClickListener {
             addressPicker.show()
             addressPicker.setThreeViewVisibility(View.GONE)
 //            AirportWebActivity.startAirportWebActivity(this, Constants.HTML_URL + "/city.html?city=${BaiduMapUtil.getInstance().cityName}&type=and")

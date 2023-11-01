@@ -1,7 +1,7 @@
 package com.mxingo.passenger.widget;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,9 +14,6 @@ import java.util.List;
 import cn.qqtheme.framework.picker.WheelPicker;
 import cn.qqtheme.framework.widget.WheelView;
 
-/**
- * Created by zhouwei on 2017/7/28.
- */
 
 public class OnePicker extends WheelPicker {
     private List<String> data = new ArrayList<>();

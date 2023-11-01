@@ -3,7 +3,7 @@ package com.mxingo.passenger.module.coupon
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
@@ -48,7 +48,7 @@ class UseCouponActivity : BaseActivity() {
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         userId = intent.getIntExtra(Constants.USER_ID, 0)
-        orderNo = intent.getStringExtra(Constants.ORDER_NO)
+        orderNo = intent.getStringExtra(Constants.ORDER_NO) as String
 
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setToolbar(toolbar)

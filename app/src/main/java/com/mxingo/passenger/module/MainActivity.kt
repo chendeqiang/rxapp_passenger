@@ -1,27 +1,33 @@
+
 package com.mxingo.passenger.module
 
+//import androidx.core.widget.DrawerLayout
 import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import butterknife.ButterKnife
+import com.baidu.location.LocationClient
+import com.baidu.mapapi.SDKInitializer
 import com.baidu.mapapi.map.MapView
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
+import com.mxingo.passenger.MyApplication
 import com.mxingo.passenger.R
 import com.mxingo.passenger.model.CheckVersionEntity
 import com.mxingo.passenger.model.VersionEntity
@@ -36,7 +42,9 @@ import com.mxingo.passenger.module.login.LoginActivity
 import com.mxingo.passenger.module.message.MessageActivity
 import com.mxingo.passenger.module.order.MyTripsActivity
 import com.mxingo.passenger.module.order.PubOrderActivity
+import com.mxingo.passenger.module.order.TakeCarNowActivity
 import com.mxingo.passenger.module.setting.SettingActivity
+import com.mxingo.passenger.util.StartUtil
 import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
@@ -46,9 +54,12 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     @Inject
     lateinit var presenter: MyPresenter
     private lateinit var btnLocation: Button
-    private lateinit var btnPubOrder: Button
+    private lateinit var llPubOrder: LinearLayout
+    private lateinit var llTakeCar: LinearLayout
     private lateinit var tvMobile: TextView
     private lateinit var drawer: DrawerLayout
+
+    private lateinit var flCAll:FrameLayout
 
     companion object {
         @JvmStatic
@@ -60,6 +71,10 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //百度地图
+        SDKInitializer.setAgreePrivacy(applicationContext,true)
+        LocationClient.setAgreePrivacy(true)
+        SDKInitializer.initialize(applicationContext)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
         ComponentHolder.appComponent!!.inject(this)
@@ -68,28 +83,47 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         mv = findViewById(R.id.mv) as MapView
         BaiduMapUtil.getInstance().setBaiduMap(mv)
         BaiduMapUtil.getInstance().registerLocationListener()
-        addPermissions()
+        MyApplication.isMainActivityLive = true
+        requestPermissions()
 
         initToolbar()
 
-        btnLocation = findViewById(R.id.btn_location) as Button
-        btnPubOrder = findViewById(R.id.btn_pub_order) as Button
+        llTakeCar =findViewById(R.id.ll_take_car)
+        btnLocation = findViewById<Button>(R.id.btn_location)
+        llPubOrder = findViewById<LinearLayout>(R.id.ll_pub_order)
+        flCAll = findViewById<FrameLayout>(R.id.fl_call)
+
+        flCAll.setOnClickListener {
+            StartUtil.call110Mobile("如遇突发紧急情况及生命财产受到侵犯，请直接拨打110！", this)
+        }
+
         btnLocation.setOnClickListener {
             BaiduMapUtil.getInstance().registerLocationListener()
         }
 
-        btnPubOrder.setOnClickListener {
+        //一键叫车
+        llTakeCar.setOnClickListener {
             if (UserInfoPreferences.getInstance().userId == 0) {
                 LoginActivity.startLoginActivity(this)
+            } else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 2)
+            } else {
+                TakeCarNowActivity.startTakeCarNowActivity(this,UserInfoPreferences.getInstance().userId.toString(),BaiduMapUtil.getInstance().locationNow)
+            }
+        }
+
+        llPubOrder.setOnClickListener {
+            if (UserInfoPreferences.getInstance().userId == 0) {
+                LoginActivity.startLoginActivity(this)
+            } else if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 2)
             } else {
                 PubOrderActivity.startPubOrderActivity(this, UserInfoPreferences.getInstance().userId)
             }
         }
-        presenter.checkVersion(Constants.RX_PASSENGER)
     }
 
-    fun addPermissions() {
-
+    fun requestPermissions() {
         val list = arrayListOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE)
         list.filter {
             ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED

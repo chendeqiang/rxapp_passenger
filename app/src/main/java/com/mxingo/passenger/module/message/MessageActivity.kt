@@ -3,7 +3,7 @@ package com.mxingo.passenger.module.message
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 import android.widget.TextView
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants

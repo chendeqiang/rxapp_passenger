@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/activity_bg"
-                                                 tools:context="com.mxingo.passenger.module.order.MyTripsActivity">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activity_bg"
+    tools:context="com.mxingo.passenger.module.order.MyTripsActivity">
 
-    <include layout="@layout/action_bar"/>
+    <include layout="@layout/action_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_marginBottom="@dimen/item_margin"
             android:background="@color/white">
 
-            <android.support.design.widget.TabLayout
+            <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_look_order"
                 android:layout_width="300dp"
                 android:layout_height="48dp"
@@ -32,23 +32,23 @@
                 app:tabSelectedTextColor="@color/colorButtonBg"
                 app:tabTextColor="@color/text_color_black">
 
-                <android.support.design.widget.TabItem
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="全部行程"/>
+                    android:text="全部行程" />
 
-                <android.support.design.widget.TabItem
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="未出行"/>
+                    android:text="未出行" />
 
-                <android.support.design.widget.TabItem
+                <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="待支付"/>
+                    android:text="待支付" />
 
 
-            </android.support.design.widget.TabLayout>
+            </com.google.android.material.tabs.TabLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -56,7 +56,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v4.widget.SwipeRefreshLayout
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/srl_refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -67,8 +67,8 @@
                     android:layout_height="match_parent"
                     android:divider="@color/activity_bg"
                     android:dividerHeight="@dimen/item_margin"
-                    android:paddingTop="@dimen/item_margin"/>
-            </android.support.v4.widget.SwipeRefreshLayout>
+                    android:paddingTop="@dimen/item_margin" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <LinearLayout
                 android:id="@+id/ll_empty"
@@ -81,7 +81,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_empty_trip"/>
+                    android:src="@drawable/ic_empty_trip" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,9 +89,9 @@
                     android:layout_marginTop="@dimen/default_margin"
                     android:text="您尚未有行程哦"
                     android:textColor="@color/text_color_gray"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_16" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

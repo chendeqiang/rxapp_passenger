@@ -5,12 +5,9 @@ import android.content.Intent
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.webkit.*
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener
-import com.baidu.mapapi.search.poi.PoiDetailResult
-import com.baidu.mapapi.search.poi.PoiIndoorResult
-import com.baidu.mapapi.search.poi.PoiResult
+import com.baidu.mapapi.search.poi.*
 import com.mxingo.driver.module.BaseActivity
 import com.mxingo.driver.utils.Constants
 import com.mxingo.passenger.R
@@ -40,7 +37,7 @@ class AirportWebActivity : BaseActivity() {
     }
 
     fun initWeb() {
-        wvAirport.loadUrl(intent.getStringExtra(Constants.URL))
+        wvAirport.loadUrl(intent.getStringExtra(Constants.URL).toString())
         wvAirport.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN;
         wvAirport.settings.javaScriptEnabled = true //设置支持Javascript
         wvAirport.settings.setSupportZoom(false)
@@ -65,7 +62,7 @@ class AirportWebActivity : BaseActivity() {
         }
 
         override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
-            if (view.url.contains("https://")) {
+            if (view.url?.contains("https://") == true) {
                 handler.proceed()
             }
         }
@@ -100,6 +97,10 @@ class AirportWebActivity : BaseActivity() {
                 }
 
                 override fun onGetPoiDetailResult(p0: PoiDetailResult?) {
+                }
+
+                override fun onGetPoiDetailResult(p0: PoiDetailSearchResult?) {
+
                 }
 
             })

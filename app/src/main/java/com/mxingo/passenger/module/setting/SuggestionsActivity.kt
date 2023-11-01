@@ -3,8 +3,8 @@ package com.mxingo.passenger.module.setting
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v7.widget.Toolbar
+import com.google.android.material.tabs.TabLayout
+import androidx.appcompat.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -56,17 +56,17 @@ class SuggestionsActivity : BaseActivity() {
     }
 
     private fun init() {
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setToolbar(toolbar)
-        val tvToolbar = findViewById(R.id.tv_toolbar_title) as TextView
+        val tvToolbar = findViewById<TextView>(R.id.tv_toolbar_title)
         tvToolbar.text = getString(R.string.app_name)
-        tabSuggestion = findViewById(R.id.tab_suggestion) as TabLayout
-        llSuggestion = findViewById(R.id.ll_suggestion) as LinearLayout
-        llComplain = findViewById(R.id.ll_complain) as LinearLayout
-        etContent = findViewById(R.id.et_content_suggestion) as EditText
-        btnPub = findViewById(R.id.btn_pub_suggestion) as Button
-        btnCall = findViewById(R.id.btn_call) as Button
-        tvLength = findViewById(R.id.tv_length) as TextView
+        tabSuggestion = findViewById<TabLayout>(R.id.tab_suggestion)
+        llSuggestion = findViewById<LinearLayout>(R.id.ll_suggestion)
+        llComplain = findViewById<LinearLayout>(R.id.ll_complain)
+        etContent = findViewById<EditText>(R.id.et_content_suggestion)
+        btnPub = findViewById<Button>(R.id.btn_pub_suggestion)
+        btnCall = findViewById<Button>(R.id.btn_call)
+        tvLength = findViewById<TextView>(R.id.tv_length)
         initListener()
         initView(0)
     }
